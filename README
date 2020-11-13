@@ -1,7 +1,35 @@
-to run PDF loader to Google Disk:
+# Relevant-choice-MAI
+### PDF saving part
 
-D:\diploma\venv\Scripts\python.exe run.py --path D:\diploma\config\input.json
+PDF saving module from arXiv and download it to Google drive:
 
-to show amount of pdf files on GD:
+```
+python.exe run.py --path path-to-json-file
+```
+Receive amount of PDF files in folder:
 
-D:\diploma\venv\Scripts\python.exe D:\diploma\get_amount_GD.py --path D:\diploma\config\input.json
+```
+python.exe get_amount_GD.py --path path-to-json-file
+```
+
+Json format example:
+
+```
+{
+    {"SCOPES": ["https://www.googleapis.com/auth/drive"] (different scopes for GD API),
+  "SERVICE_ACCOUNT_FILE" : path-to-GD-service-account-credentials,
+  "api_folder_path": id-of-folder-in-GD,
+  "data_folder" : path-to-temp-folder,
+  "csv_name": csv-name-with-meta-data,
+  "url" : [
+   url-to-arXiv-search-promt
+  ]}
+
+}
+```
+All info about GDrive API can found in this guide:
+See [this guide](http://datalytics.ru/all/rabotaem-s-api-google-drive-s-pomoschyu-python/)
+
+
+
+
