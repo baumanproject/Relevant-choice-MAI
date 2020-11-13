@@ -1,0 +1,7 @@
+to run PDF loader to Google Disk:
+
+D:\diploma\venv\Scripts\python.exe run.py --path D:\diploma\config\input.json
+
+to show amount of pdf files on GD:
+
+D:\diploma\venv\Scripts\python.exe D:\diploma\get_amount_GD.py --path D:\diploma\config\input.json
