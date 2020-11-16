@@ -19,7 +19,7 @@ COPY run.py /opt/lib/run.py
 
 WORKDIR /opt/lib
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["python", "run.py","--path", "/opt/lib/config/input_docker.json" ]
 
