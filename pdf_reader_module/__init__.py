@@ -21,6 +21,8 @@ logger.addHandler(fh)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                 datefmt='%m/%d/%Y %I:%M:%S %p',
                 filename='./logs/info.log',
-                filemode='w',
+                filemode='w+',
                 level=logging.INFO)
+
+
 

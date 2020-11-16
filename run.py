@@ -9,6 +9,7 @@ if __name__ == "__main__":
         args = parser.parse_args()
         #print(args.path)
         main_app(args.path)
+
     except Exception as e:
         logging.error("Unexpected error", exc_info=True)
 
