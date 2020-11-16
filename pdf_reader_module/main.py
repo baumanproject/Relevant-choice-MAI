@@ -30,9 +30,9 @@ def main_app(path="../config/input.json"):
     abstract, author, title, year, pdf, journal = [], [], [], [], [], []
 
     for link in url:
-        logging("New url < <  {0}  > > in run".format(link))
+        logging.info("New url < <  {0}  > > in run".format(link))
         abstract_, author_, title_, year_, pdf_, journal_ = PDF_Loader_GD(data_folder, link, service, api_folder_path)
-        logging("Amount: {} of pdf files was deployed on GD".format(len(title_)))
+        logging.info("Amount: {} of pdf files was deployed on GD".format(len(title_)))
         abstract = abstract + abstract_
         author = author + author_
         title = title + title_
@@ -46,4 +46,4 @@ def main_app(path="../config/input.json"):
     df.to_csv(csv_path, index=False, header=True)
     send_to_GDisk_csv(csv_name,csv_path, api_folder_path, service)
     shutil.rmtree(data_folder)
-    logging("Total amount: {} files".format(df.shape[0]))
+    logging.info("Total amount: {} files".format(df.shape[0]))

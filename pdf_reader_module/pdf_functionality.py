@@ -7,7 +7,7 @@ import re
 from os.path import isfile, join
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
-from pdf_reader_module import logging
+#from pdf_reader_module import logging
 
 def get_title(soup):
     arr = []
@@ -75,7 +75,7 @@ def send_to_GDisk_pdf(path, gd_folder_path, service):
     for i in pdf_files:
         name = i
         file_path = path + "/" + name
-        logging(file_path)
+        #logging(file_path)
         file_metadata = {
             'name': name,
             'parents': [gd_folder_path]
