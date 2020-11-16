@@ -2,6 +2,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import pandas as pd
 import json
+from pdf_reader_module import logging
 
 from pdf_reader_module.pdf_functionality import *
 
@@ -24,14 +25,14 @@ def main_app(path="../config/input.json"):
 
     csv_name = config_input["csv_name"]
     csv_path = data_folder + "/" + csv_name + ".csv"
-    print(csv_path)
+    logging.info(csv_path)
 
     abstract, author, title, year, pdf, journal = [], [], [], [], [], []
 
     for link in url:
-        print("New url < <  {0}  > > in run".format(link))
+        logging("New url < <  {0}  > > in run".format(link))
         abstract_, author_, title_, year_, pdf_, journal_ = PDF_Loader_GD(data_folder, link, service, api_folder_path)
-        print("Amount: {} of pdf files was deployed on GD".format(len(title_)))
+        logging("Amount: {} of pdf files was deployed on GD".format(len(title_)))
         abstract = abstract + abstract_
         author = author + author_
         title = title + title_
@@ -45,4 +46,4 @@ def main_app(path="../config/input.json"):
     df.to_csv(csv_path, index=False, header=True)
     send_to_GDisk_csv(csv_name,csv_path, api_folder_path, service)
     shutil.rmtree(data_folder)
-    print("Total amount: {} files".format(df.shape[0]))
+    logging("Total amount: {} files".format(df.shape[0]))
