@@ -7,6 +7,7 @@ from pdf_reader_module.pdf_functionality import *
 
 
 def main_app(path="../config/input.json"):
+    #print([f for f in listdir(path) if isfile(join(path, f))])
     with open(path, 'r') as f:
         config_input = json.load(f)
     # "../config/input.json"
