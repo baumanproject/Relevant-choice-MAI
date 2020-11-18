@@ -21,7 +21,7 @@ WORKDIR /opt/lib
 RUN pip3 install -r requirements.txt
 
 
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3.7"]
 CMD ["api.py","--path","/opt/lib/config/input_docker.json"]
 
 
