@@ -12,16 +12,17 @@ COPY config /opt/lib/config
 COPY pdf_reader_module /opt/lib/pdf_reader_module
 
 COPY get_amount_GD.py /opt/lib/get_amount_GD.py
-COPY run.py /opt/lib/run.py
-
-
-#ADD home/aquafeet/dep/data /opt/data
+COPY parsing.py /opt/lib/parsing.py
+COPY arxiv_api /opt/lib/arxiv_api
+COPY api.py /opt/lib/api.py
 
 WORKDIR /opt/lib
 
 RUN pip3 install -r requirements.txt
 
-ENTRYPOINT ["python", "run.py","--path", "/opt/lib/config/input_docker.json" ]
+
+ENTRYPOINT ["python"]
+CMD ["api.py","--path","/opt/lib/config/input_docker.json"]
 
 
 

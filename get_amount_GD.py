@@ -39,3 +39,6 @@ if __name__ == "__main__":
     parser.add_argument('--path', help='path to config file')
     args = parser.parse_args()
     get_amount(args.path)
+
+
+

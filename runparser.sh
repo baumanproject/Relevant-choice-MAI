@@ -1,0 +1,1 @@
+docker build -t pdf_reader .; docker run  -d -p 8080:8080 -v /mnt/d/diploma/logs:/opt/lib/logs pdf_reader "parsing.py" "--path" "/opt/lib/config/input_docker_old.json"
