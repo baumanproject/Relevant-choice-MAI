@@ -42,22 +42,27 @@ def receive_data_by_query(journal,path):
         query="jr:\"{}\"".format(journal),
         max_chunk_results=100,
         max_results=1000,
-        iterative=False,
+        iterative=True,
         prune=False,
         sort_order="descending"
     )
     #print(journal)
     abstract_list, authors_list, title_list, year_list, pdf_list, journal_list = [], [], [], [], [], []
-    for paper in result:
+    for paper in result():
+        #https: // export.arxiv.org / pdf / 2006.02728
 
         url_pdf = paper['pdf_url']
-        r = requests.get(url_pdf, stream=True)
+        new_url = "https://export.arxiv.org" + url_pdf[16:]
+        #print(url_pdf)
+        #time.sleep(4)
+        r = requests.get(new_url, stream=True)
+        time.sleep(10)
         return_name = '{}.pdf'.format(re.sub('[\W_]+', '', paper["pdf_url"].split("/pdf")[-1]))
         file_name = path + "/" + return_name
         with open(file_name, 'wb') as f:
             f.write(r.content)
         # print('{}.pdf'.format(re.sub('[\W_]+', '', url_pdf.split("/pdf")[-1])))
-        pdf_list.append('{}.pdf'.format(re.sub('[\W_]+', '', url_pdf.split("/pdf")[-1])))
+        pdf_list.append(return_name)
         #print(paper['title'])
         title_list.append(paper['title'])
         abstract_list.append(paper['summary'])
