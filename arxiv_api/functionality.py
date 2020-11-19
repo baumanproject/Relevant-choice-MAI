@@ -1,6 +1,6 @@
 
 from googleapiclient.http import MediaFileUpload
-from os import listdir
+from os import listdir, stat, remove
 from os.path import isfile, join
 import arxiv
 import re
@@ -47,6 +47,7 @@ def receive_data_by_query(journal,path):
         sort_order="descending"
     )
     #print(journal)
+    url_list , memory_list = [],[]
     abstract_list, authors_list, title_list, year_list, pdf_list, journal_list = [], [], [], [], [], []
     for paper in result():
         #https: // export.arxiv.org / pdf / 2006.02728
@@ -56,11 +57,25 @@ def receive_data_by_query(journal,path):
         #print(url_pdf)
         #time.sleep(4)
         r = requests.get(new_url, stream=True)
-        time.sleep(10)
+        #time.sleep(5)
         return_name = '{}.pdf'.format(re.sub('[\W_]+', '', paper["pdf_url"].split("/pdf")[-1]))
         file_name = path + "/" + return_name
         with open(file_name, 'wb') as f:
             f.write(r.content)
+        if stat(file_name).st_size <= 9001:
+            remove(file_name)
+            time.sleep(5)
+            r = requests.get(new_url, stream=True)
+            # time.sleep(5)
+            logging.warning("File {} was broken :(".format(return_name))
+            return_name = '{}.pdf'.format(re.sub('[\W_]+', '', paper["pdf_url"].split("/pdf")[-1]))
+            file_name = path + "/" + return_name
+            with open(file_name, 'wb') as f:
+                f.write(r.content)
+            time.sleep(10)
+
+        memory_list.append(stat(file_name).st_size)
+        url_list.append(new_url)
         # print('{}.pdf'.format(re.sub('[\W_]+', '', url_pdf.split("/pdf")[-1])))
         pdf_list.append(return_name)
         #print(paper['title'])
@@ -73,4 +88,4 @@ def receive_data_by_query(journal,path):
 
 
     logging.info("Journal successfully passed {}".format(journal))
-    return pdf_list, title_list, abstract_list, authors_list, journal_list, year_list
+    return pdf_list, title_list, abstract_list, authors_list, journal_list, year_list, url_list, memory_list

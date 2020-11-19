@@ -40,6 +40,8 @@ def main_app(path="../config/input.json"):
         pdf = pdf + pdf_
         journal = journal + journal_
 
+
+
     df = pd.DataFrame(list(zip(pdf, title, author, journal, year, abstract)),
                       columns=['pdf_key', 'title', 'author', 'journal', 'year', 'abstract'])
     mkdir(data_folder)
